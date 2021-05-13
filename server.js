@@ -42,8 +42,10 @@ mongoose.connect(
   'mongodb+srv://conor123:conor123@cluster0.xtigo.mongodb.net/cs230exam?retryWrites=true&w=majority',
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
-    console.log('connected to db');
+    console.log('connected to mongo db');
   }
 );
 
-app.listen(4002, () => {});
+app.listen(4002, () => {
+  console.log('Connected on port 4002');
+});
