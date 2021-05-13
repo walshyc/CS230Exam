@@ -30,7 +30,7 @@ const NewSessionForm = () => {
     time: '',
     physio: '',
     client: '',
-    price: null,
+    price: '',
     sessionNumber: '',
     duration: '',
     type: '',

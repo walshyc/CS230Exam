@@ -18,7 +18,10 @@ const ClientSessions = ({ sessions, client }) => {
           {sessions
             .sort((a, b) => a.date > b.date)
             .map((sess) => (
-              <div className="border-gray-600  border m-2 p-2 rounded shadow text-left flex flex-col sm:flex-row sm:flex-wrap ">
+              <div
+                key={sess._id}
+                className="border-gray-600  border m-2 p-2 rounded shadow text-left flex flex-col sm:flex-row sm:flex-wrap "
+              >
                 <div className="w-full sm:w-1/2 pl-4 flex py-4">
                   <svg
                     className="w-6 h-6 mr-2"
