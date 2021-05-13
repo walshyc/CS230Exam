@@ -16,7 +16,7 @@ const Clients = () => {
   return (
     <div className="w-full min-h-screen bg-gray-300">
       <div className="flex justify-center">
-        <Link to='/clients/add' class='bg-green-300 px-3 py-2 my-2 rounded-2xl shadow-xl font-bold text-2xl'>Add New User</Link>
+        <Link to='/clients/add' className='bg-green-300 px-3 py-2 my-2 rounded-2xl shadow-xl font-bold text-2xl'>Add New User</Link>
       </div>
       <div className="flex flex-wrap justify-center items-center gap-1 w-full">
         {clients.map((c, i) => (

@@ -17,7 +17,7 @@ const Physios = () => {
       <div className="flex justify-center">
         <Link
           to="/physios/add"
-          class="bg-yellow-200 px-3 py-2 my-2 rounded-2xl shadow-xl font-bold text-2xl"
+          className="bg-yellow-200 px-3 py-2 my-2 rounded-2xl shadow-xl font-bold text-2xl"
         >
           Add New Physio
         </Link>

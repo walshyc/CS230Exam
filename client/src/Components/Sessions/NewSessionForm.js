@@ -51,11 +51,7 @@ const NewSessionForm = () => {
         },
       };
 
-      await axios.post(
-        'http://localhost:4002/sessions',
-        formData,
-        config
-      );
+      await axios.post('http://localhost:4002/sessions', formData, config);
 
       history.push('/sessions');
     } catch (error) {
@@ -68,37 +64,37 @@ const NewSessionForm = () => {
       <div className="text-left font-bold text-3xl py-3 ml-3">
         Add new Session
       </div>
-      <form onSubmit={(e) => onSubmit(e)} class="w-full flex flex-wrap">
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Session Date</span>
+      <form onSubmit={(e) => onSubmit(e)} className="w-full flex flex-wrap">
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Session Date</span>
           <input
             required
             type="date"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             name="date"
             value={date}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Session Time</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Session Time</span>
           <input
             required
             name="time"
             value={time}
             onChange={(e) => onChange(e)}
             type="time"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Physio</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Physio</span>
           <select
             required
             name="physio"
             value={physio}
             onChange={(e) => onChange(e)}
-            class="form-select block w-full mt-1"
+            className="form-select block w-full mt-1"
           >
             <option disabled value=""></option>
             {physios.map((p) => (
@@ -108,14 +104,14 @@ const NewSessionForm = () => {
             ))}
           </select>
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Client</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Client</span>
           <select
             required
             name="client"
             value={client}
             onChange={(e) => onChange(e)}
-            class="form-select block w-full mt-1"
+            className="form-select block w-full mt-1"
           >
             <option disabled value=""></option>
             {clients.map((c) => (
@@ -125,38 +121,38 @@ const NewSessionForm = () => {
             ))}
           </select>
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Price</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Price</span>
           <input
             required
             type="number"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="€100"
             name="price"
             value={price}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Duration/Cancelled/No Show</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Duration/Cancelled/No Show</span>
           <input
             required
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="1 hour"
             name="duration"
             value={duration}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Type</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Type</span>
           <select
             required
             name="type"
             value={type}
             onChange={(e) => onChange(e)}
-            class="form-select block w-full mt-1"
+            className="form-select block w-full mt-1"
           >
             <option disabled value=""></option>
             {sessionTypes.map((type) => (
@@ -167,11 +163,11 @@ const NewSessionForm = () => {
           </select>
         </label>
 
-        <label class="block w-full">
-          <span class="text-gray-700">Session Notes</span>
+        <label className="block w-full">
+          <span className="text-gray-700">Session Notes</span>
           <textarea
             required
-            class="form-textarea mt-1 block w-full h-24"
+            className="form-textarea mt-1 block w-full h-24"
             rows="3"
             placeholder="Enter any session notes."
             name="notes"
@@ -181,7 +177,7 @@ const NewSessionForm = () => {
         </label>
 
         <button
-          class="bg-green-300 p-3 m-4 rounded-2xl font-bold block w-full"
+          className="bg-green-300 p-3 m-4 rounded-2xl font-bold block w-full"
           type="submit"
         >
           Add New Session

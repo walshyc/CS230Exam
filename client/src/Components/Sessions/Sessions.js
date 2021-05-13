@@ -18,7 +18,7 @@ const Sessions = () => {
       <div className="flex justify-center">
         <Link
           to="/sessions/add"
-          class="bg-yellow-200 px-3 py-2 my-2 rounded-2xl shadow-xl font-bold text-2xl"
+          className="bg-yellow-200 px-3 py-2 my-2 rounded-2xl shadow-xl font-bold text-2xl"
         >
           Add New Physio Session
         </Link>

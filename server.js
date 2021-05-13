@@ -6,6 +6,11 @@
 // Use npm install to install the various packages
 // cd into client directory and use the command npm start to see the front end React application. npm install will be required in this directory also
 
+// I designed the database using 3 models - Clients, Physios and Sessions.
+// Clients contains all the required information for a client.
+// Physio contains all the required information for a physio.
+// Sessions holds the required information for each session along with a reference to the physio and client associated with the session
+// I was able to use the Mongoose populate method when querying the session to fill the information for each physio and client into the response
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -20,7 +25,7 @@ const Session = require('./models/Sessions');
 // imports of routes from routes folder
 const clients = require('./routes/clients');
 const physios = require('./routes/physios');
-const sessions = require("./routes/sessions");
+const sessions = require('./routes/sessions');
 
 // Middleware
 app.use(express.json());
@@ -32,7 +37,6 @@ app.use('/clients', clients);
 app.use('/physios', physios);
 app.use('/sessions', sessions);
 
-
 // connect to database
 mongoose.connect(
   'mongodb+srv://conor123:conor123@cluster0.xtigo.mongodb.net/cs230exam?retryWrites=true&w=majority',
@@ -42,7 +46,4 @@ mongoose.connect(
   }
 );
 
-
 app.listen(4002, () => {});
-
-

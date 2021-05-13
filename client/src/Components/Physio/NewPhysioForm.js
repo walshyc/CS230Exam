@@ -30,7 +30,6 @@ const NewPhysioForm = () => {
     mobile,
     homePhone,
     email,
-    dob,
   } = formData;
 
   const onChange = (e) =>
@@ -58,14 +57,14 @@ const NewPhysioForm = () => {
       <div className="text-left font-bold text-3xl py-3 ml-3">
         Add new Physio
       </div>
-      <form onSubmit={(e) => onSubmit(e)} class="w-full flex flex-wrap">
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Title</span>
+      <form onSubmit={(e) => onSubmit(e)} className="w-full flex flex-wrap">
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Title</span>
           <select
             name="title"
             value={title}
             onChange={(e) => onChange(e)}
-            class="form-select block w-full mt-1"
+            className="form-select block w-full mt-1"
           >
             <option value="Mx">Mx</option>
             <option value="Ms">Ms</option>
@@ -76,110 +75,110 @@ const NewPhysioForm = () => {
             <option value="Other">Other</option>
           </select>
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">First name</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">First name</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="John"
             name="fname"
             value={fname}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Second name</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Second name</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="Doe"
             name="lname"
             value={lname}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Mobile</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Mobile</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="08712356985"
             name="mobile"
             value={mobile}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Home Phone</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Home Phone</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="015896238"
             name="homePhone"
             value={homePhone}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Email address</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Email address</span>
           <input
             type="email"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="john@email.com"
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Address Line 1</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Address Line 1</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="100 Station Road"
             name="addressOne"
             value={addressOne}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Address Line 2</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Address Line 2</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="The Valley"
             name="addressTwo"
             value={addressTwo}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Town</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Town</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="Maynooth"
             name="town"
             value={town}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">County</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">County</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="Co. Kildare"
             name="county"
             value={county}
             onChange={(e) => onChange(e)}
           />
         </label>
-        <label class="block mx-4 w-full sm:w-5/12">
-          <span class="text-gray-700">Eircode</span>
+        <label className="block mx-4 w-full sm:w-5/12">
+          <span className="text-gray-700">Eircode</span>
           <input
             type="text"
-            class="form-input mt-1 block w-full"
+            className="form-input mt-1 block w-full"
             placeholder="F25 YH72"
             name="eircode"
             value={eircode}
@@ -188,7 +187,7 @@ const NewPhysioForm = () => {
         </label>
 
         <button
-          class="bg-green-300 p-3 m-4 rounded-2xl font-bold block w-full"
+          className="bg-green-300 p-3 m-4 rounded-2xl font-bold block w-full"
           type="submit"
         >
           Add New Physio
