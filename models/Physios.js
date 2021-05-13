@@ -7,27 +7,24 @@ const PhysioSchema = mongoose.Schema({
   mobile: { type: String, required: true },
   homePhone: { type: String, required: true },
   email: { type: String, required: true },
-  address: {
-    addressOne: {
-      type: String,
-      required: true,
-    },
-    addressTwo: {
-      type: String,
-    },
-    town: {
-      type: String,
-      required: true,
-    },
-    county: {
-      type: String,
-      required: true,
-    },
-    eircode: {
-      type: String,
-    },
+  addressOne: {
+    type: String,
+    required: true,
   },
-  
+  addressTwo: {
+    type: String,
+  },
+  town: {
+    type: String,
+    required: true,
+  },
+  county: {
+    type: String,
+    required: true,
+  },
+  eircode: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model('Physio', PhysioSchema);

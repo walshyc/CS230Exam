@@ -8,13 +8,8 @@ const SessionSchema = mongoose.Schema({
   price: { type: Number, required: true },
   sessionNumber: { type: String, required: true },
   duration: { type: String, required: true },
-  type:  { type: String, required: true },
-  notes:  { type: String, required: true },
-  // items: [
-  //   {
-  //     phone: { type: mongoose.ObjectId, required: true },
-  //   },
-  // ],
+  type: { type: String, required: true },
+  notes: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Sessions', SessionSchema);
