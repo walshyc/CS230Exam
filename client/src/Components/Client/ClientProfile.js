@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Moment from 'react-moment';
-import { useLocation } from 'react-router';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import ClientSessions from './ClientSessions';
 
 const ClientProfile = () => {
   const history = useHistory();
+
   const { id } = useParams();
   const [clientDetails, setClientDetails] = useState([]);
   const [clientSessions, setClientSessions] = useState([]);
@@ -25,7 +25,7 @@ const ClientProfile = () => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const res = await axios.delete(`http://localhost:4002/clients/${id}`);
+    await axios.delete(`http://localhost:4002/clients/${id}`);
     history.push('/clients');
   };
 
@@ -223,29 +223,61 @@ const ClientProfile = () => {
                   <div>Referred By: {clientDetails.referredBy}</div>
                 </div>
               </div>
-              <div className="w-full sm:w-1/2 pl-4 flex py-2">
-                <button
-                  onClick={(e) => handleDelete(e)}
-                  className="bg-red-400 py-3 px-2 flex rounded-xl shadow-lg"
-                >
-                  <svg
-                    className="w-6 h-6 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                  <div>
-                    <div>Delete Client</div>
-                  </div>{' '}
-                </button>
+              <div className="w-full pl-4 flex justify-between py-2">
+                <div className="flex justify-between w-10/12">
+                  <div className="w-10/12 mr-2">
+                    <button
+                      onClick={(e) => handleDelete(e)}
+                      className="bg-red-400 py-3 px-2 flex rounded-xl shadow-lg w-full"
+                    >
+                      <svg
+                        className="w-6 h-6 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                      <div>
+                        <div>Delete Client</div>
+                      </div>{' '}
+                    </button>
+                  </div>
+                  <div className="w-10/12">
+                    <Link
+                      to={{
+                        pathname: `/clients/update/${id}`,
+                        state: { clientDetails },
+                      }}
+                    >
+                      <div className="bg-blue-400 py-3 px-2 flex rounded-xl shadow-lg w-full">
+                        <svg
+                          className="w-6 h-6 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                        <div>
+                          <div>Update Client</div>
+                        </div>{' '}
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

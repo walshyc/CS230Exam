@@ -8,8 +8,11 @@ import Landing from './Components/Landing';
 import Physios from './Components/Physio/Physios';
 import Sessions from './Components/Sessions/Sessions';
 import NewClientForm from './Components/Client/NewClientForm';
+import UpdateClientForm from './Components/Client/UpdateClientForm';
 import NewPhysioForm from './Components/Physio/NewPhysioForm';
+import UpdatePhysioForm from './Components/Physio/UpdatePhysioForm';
 import NewSessionForm from './Components/Sessions/NewSessionForm';
+import UpdateSessionForm from './Components/Sessions/UpdateSessionForm';
 
 function App() {
   return (
@@ -22,11 +25,17 @@ function App() {
               <Route exact path="/physios/add">
                 <NewPhysioForm></NewPhysioForm>
               </Route>
+              <Route exact path="/physios/update/:id">
+                <UpdatePhysioForm></UpdatePhysioForm>
+              </Route>
               <Route exact path="/physios/:id">
                 <PhysioProfile></PhysioProfile>
               </Route>
               <Route exact path="/physios">
                 <Physios></Physios>
+              </Route>
+              <Route exact path="/sessions/update/:id">
+                <UpdateSessionForm></UpdateSessionForm>
               </Route>
               <Route exact path="/sessions/add">
                 <NewSessionForm></NewSessionForm>
@@ -36,6 +45,9 @@ function App() {
               </Route>
               <Route exact path="/clients/add">
                 <NewClientForm></NewClientForm>
+              </Route>
+              <Route exact path="/clients/update/:id">
+                <UpdateClientForm></UpdateClientForm>
               </Route>
               <Route exact path="/clients/:id">
                 <ClientProfile></ClientProfile>

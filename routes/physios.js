@@ -6,6 +6,8 @@ const { check, validationResult } = require('express-validator');
 const Physio = require('../models/Physios');
 const Session = require('../models/Sessions');
 
+
+// Route to get all physios
 router.get('/', async (req, res, next) => {
   try {
     const physios = await Physio.find();
@@ -15,6 +17,8 @@ router.get('/', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+// Route to generate sample physios and add to database
 router.get('/generate', async (req, res, next) => {
   try {
     let total = 5;
@@ -40,7 +44,7 @@ router.get('/generate', async (req, res, next) => {
       };
       usersArray.push(user);
     }
-    //console.log(usersArray);
+
     Physio.insertMany(usersArray)
       .then(() => console.log('physios added'))
       .catch((err) => console.log(err));
@@ -51,6 +55,8 @@ router.get('/generate', async (req, res, next) => {
   }
 });
 
+
+// Route to add a new physio to the database
 router.post('/', async (req, res, next) => {
   const {
     title,
@@ -89,6 +95,8 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+
+// Route to get a specific physio by their ID
 router.get('/:physioId', async (req, res, next) => {
   try {
     const physio = await Physio.findById(req.params.physioId);
@@ -99,6 +107,9 @@ router.get('/:physioId', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+
+// route to delete a physio
 router.delete('/:physioId', async (req, res, next) => {
   try {
     const deletedPhysio = await Physio.remove({ _id: req.params.physioId });
@@ -112,6 +123,8 @@ router.delete('/:physioId', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+// route to update a physio
 router.patch('/:physioId', async (req, res, next) => {
   const {
     title,

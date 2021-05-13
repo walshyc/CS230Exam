@@ -9,6 +9,8 @@ const Session = require('../models/Sessions');
 const Client = require('../models/Clients');
 const Physio = require('../models/Physios');
 
+
+// Route to get all Sessions
 router.get('/', async (req, res, next) => {
   try {
     const sessions = await Session.find()
@@ -21,6 +23,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// Route to generate sample sessions and add to database
 router.get('/generate', async (req, res, next) => {
   try {
     const total = 30;
@@ -94,6 +97,7 @@ router.get('/generate', async (req, res, next) => {
   }
 });
 
+// Route to add a new session to the database
 router.post('/', async (req, res, next) => {
   console.log(req.body);
   const { date, time, physio, client, price, duration, type, notes } = req.body;
@@ -107,8 +111,8 @@ router.post('/', async (req, res, next) => {
   const session = new Session({
     date,
     time: inputDate,
-    physio,
-    client,
+    physio: mongoose.Types.ObjectId(physio),
+    client: mongoose.Types.ObjectId(client),
     price,
     sessionNumber: uuidv4(),
     duration,
@@ -125,6 +129,8 @@ router.post('/', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+// Route to get a clients session by their ID
 router.get('/client/:clientId', async (req, res, next) => {
   try {
     const sessions = await Session.find({
@@ -140,6 +146,8 @@ router.get('/client/:clientId', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+// Route to get a physios session by their ID
 router.get('/physio/:physioId', async (req, res, next) => {
   try {
     const sessions = await Session.find({
@@ -156,6 +164,8 @@ router.get('/physio/:physioId', async (req, res, next) => {
   }
 });
 
+
+// route to get a session by ID 
 router.get('/:sessionId', async (req, res, next) => {
   try {
     const session = await session.findById(req.params.sessionId);
@@ -166,6 +176,8 @@ router.get('/:sessionId', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+// route to delete a session
 router.delete('/:sessionId', async (req, res, next) => {
   try {
     const deletedSession = await Session.remove({ _id: req.params.sessionId });
@@ -176,29 +188,26 @@ router.delete('/:sessionId', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+// route to update a session by using their ID
 router.patch('/:sesionId', async (req, res, next) => {
-  const {
-    date,
-    time,
-    physio,
-    client,
-    price,
-    sessionNumber,
-    duration,
-    type,
-    notes,
-  } = req.body;
+  const { date, time, physio, client, price, duration, type, notes } = req.body;
+  console.log(req.body.physio);
+  // https://stackoverflow.com/questions/40480631/convert-from-string-to-datetime-in-node-js
+  const input = time;
+  const parts = input.split(':');
+  const minutes = parts[0] * 60 + parts[1];
+  const inputDate = new Date(minutes * 60 * 1000);
   try {
     const updatedSession = await Session.updateOne(
       { _id: req.params.sesionId },
       {
         $set: {
           date,
-          time,
-          physio,
-          client,
+          time: inputDate,
+          physio: mongoose.Types.ObjectId(physio),
+          client: mongoose.Types.ObjectId(client),
           price,
-          sessionNumber,
           duration,
           type,
           notes,
@@ -209,6 +218,7 @@ router.patch('/:sesionId', async (req, res, next) => {
     console.log('Session Updated:');
     console.log(updatedSession);
   } catch (error) {
+    console.log(error);
     res.json({ message: error });
   }
 });

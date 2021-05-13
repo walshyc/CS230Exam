@@ -34,11 +34,5 @@ const ClientSchema = mongoose.Schema({
   referredBy: { type: String, required: true },
 });
 
-ClientSchema.post('remove', function (next) {
-  // 'this' is the client being removed. Provide callbacks here if you want
-  // to be notified of the calls' result.
-  Session.remove({ client: mongoose.Types.ObjectId(this._id) }).exec();
-  next();
-});
 
 module.exports = mongoose.model('Client', ClientSchema);

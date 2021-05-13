@@ -3,8 +3,6 @@ import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 
 const ClientSessions = ({ sessions, client }) => {
-  console.log(sessions);
-
   return (
     <div className="w-full mx-10 rounded bg-white shadow mt-6">
       <div className="w-full h-10 bg-green-300 rounded-t">

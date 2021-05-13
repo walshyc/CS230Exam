@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router';
-import { useHistory, useParams } from 'react-router-dom';
+
+import { useParams } from 'react-router-dom';
 import PhysioSessions from './PhysioSessions';
 
 const PhysioProfile = () => {

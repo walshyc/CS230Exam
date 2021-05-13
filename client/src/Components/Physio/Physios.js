@@ -8,7 +8,6 @@ const Physios = () => {
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get('http://localhost:4002/physios');
-      console.log(res.data);
       setPhysios(res.data);
     };
     getData();

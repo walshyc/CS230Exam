@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 
-const NewSessionForm = () => {
+const UpdateSessionForm = () => {
+  const { state } = useLocation();
+  const history = useHistory();
+  const { id } = useParams();
   const [clients, setClients] = useState([]);
   const [physios, setPhysios] = useState([]);
+
+  const [formData, setFormData] = useState({
+    date: '',
+    time: '',
+    physio: '',
+    client: '',
+    price: null,
+    sessionNumber: '',
+    duration: '',
+    type: '',
+    notes: '',
+  });
 
   const sessionTypes = [
     'Assessment',
@@ -20,27 +35,35 @@ const NewSessionForm = () => {
       const physiosRes = await axios.get('http://localhost:4002/physios');
       setClients(clientsRes.data);
       setPhysios(physiosRes.data);
+      let passeddate = new Date(state.session.date);
+      let passedtime = new Date(state.session.time);
+
+      setFormData({
+        ...formData,
+        date: `${passeddate.getFullYear()}-${
+          passeddate.getMonth() + 1 < 10
+            ? `0${passeddate.getMonth() + 1}`
+            : passeddate.getMonth() + 1
+        }-${passeddate.getDate()}`,
+        time: passedtime.toTimeString().substring(0, 5),
+        physio: state.session.physio._id,
+        client: state.session.client._id,
+        price: state.session.price,
+        duration: state.session.duration,
+        type: state.session.type,
+        notes: state.session.notes,
+      });
     };
     getData();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  let history = useHistory();
-  const [formData, setFormData] = useState({
-    date: '',
-    time: '',
-    physio: '',
-    client: '',
-    price: null,
-    sessionNumber: '',
-    duration: '',
-    type: '',
-    notes: '',
-  });
 
   const { date, time, physio, client, price, duration, type, notes } = formData;
 
-  const onChange = (e) =>
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -51,22 +74,23 @@ const NewSessionForm = () => {
         },
       };
 
-      await axios.post(
-        'http://localhost:4002/sessions',
+      await axios.patch(
+        `http://localhost:4002/sessions/${id}`,
         formData,
         config
       );
 
-      history.push('/sessions');
+      history.push('/');
     } catch (error) {
       const errors = error.response.data.errors;
       console.log(errors);
     }
   };
+
   return (
     <div className="flex-col w-full justify-center items-center">
       <div className="text-left font-bold text-3xl py-3 ml-3">
-        Add new Session
+        Update Session
       </div>
       <form onSubmit={(e) => onSubmit(e)} class="w-full flex flex-wrap">
         <label class="block mx-4 w-full sm:w-5/12">
@@ -184,11 +208,11 @@ const NewSessionForm = () => {
           class="bg-green-300 p-3 m-4 rounded-2xl font-bold block w-full"
           type="submit"
         >
-          Add New Session
+          Update Session
         </button>
       </form>
     </div>
   );
 };
 
-export default NewSessionForm;
+export default UpdateSessionForm;

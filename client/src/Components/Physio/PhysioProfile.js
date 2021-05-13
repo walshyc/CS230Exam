@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import PhysioSessions from './PhysioSessions';
 
 const PhysioProfile = () => {
@@ -17,15 +16,14 @@ const PhysioProfile = () => {
       );
       setPhysioDetails(clientRes.data);
       setPhysioSessions(sessionsRes.data);
-      console.log(physioDetails);
-      console.log(physioSessions);
+
     };
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleDelete = async (e) => {
     e.preventDefault();
-    const res = await axios.delete(`http://localhost:4002/physios/${id}`);
+    await axios.delete(`http://localhost:4002/physios/${id}`);
     history.push('/physios');
   };
   return (
@@ -122,29 +120,61 @@ const PhysioProfile = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full sm:w-1/2 pl-4 flex py-2">
-                <button
-                  onClick={(e) => handleDelete(e)}
-                  className="bg-red-400 py-3 px-2 flex rounded-xl shadow-lg"
-                >
-                  <svg
-                    className="w-6 h-6 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                  <div>
-                    <div>Delete Physio</div>
-                  </div>{' '}
-                </button>
+              <div className="w-full pl-4 flex justify-between py-2">
+                <div className="flex justify-between w-10/12">
+                  <div className="w-10/12 mr-2">
+                    <button
+                      onClick={(e) => handleDelete(e)}
+                      className="bg-red-400 py-3 px-2 flex rounded-xl shadow-lg w-full"
+                    >
+                      <svg
+                        className="w-6 h-6 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                      <div>
+                        <div>Delete Physio</div>
+                      </div>{' '}
+                    </button>
+                  </div>
+                  <div className="w-10/12">
+                    <Link
+                      to={{
+                        pathname: `/physios/update/${id}`,
+                        state: { physioDetails },
+                      }}
+                    >
+                      <div className="bg-blue-400 py-3 px-2 flex rounded-xl shadow-lg w-full">
+                        <svg
+                          className="w-6 h-6 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                        <div>
+                          <div>Update Physio</div>
+                        </div>{' '}
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

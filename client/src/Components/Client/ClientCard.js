@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 const ClientCard = ({ client }) => {
   return (
     <div className="mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105 flex justify-start items-start bg-green-300 px-3 py-2 my-2 rounded-2xl shadow-xl w-10/12 sm:w-80">

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 
-const NewPhysioForm = () => {
-  let history = useHistory();
+const UpdatePhysioForm = () => {
+  const { state } = useLocation();
+  const history = useHistory();
+  const { id } = useParams();
+  const [physioDetails, setPhysioDetails] = useState([]);
   const [formData, setFormData] = useState({
     addressOne: '',
     addressTwo: '',
@@ -18,6 +21,30 @@ const NewPhysioForm = () => {
     email: '',
   });
 
+  useEffect(() => {
+    const getData = async () => {
+      const physioRes = await axios.get(`http://localhost:4002/physios/${id}`);
+      setPhysioDetails(physioRes.data);
+      setFormData({
+        ...formData,
+        addressOne: state.physioDetails.addressOne,
+        addressTwo: state.physioDetails.addressTwo,
+        town: state.physioDetails.town,
+        county: state.physioDetails.county,
+        eircode: state.physioDetails.eircode,
+        title: state.physioDetails.title,
+        fname: state.physioDetails.fname,
+        lname: state.physioDetails.lname,
+        mobile: state.physioDetails.mobile,
+        homePhone: state.physioDetails.homePhone,
+        email: state.physioDetails.email,
+      });
+    };
+    getData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const {
     addressOne,
     addressTwo,
@@ -30,7 +57,6 @@ const NewPhysioForm = () => {
     mobile,
     homePhone,
     email,
-    dob,
   } = formData;
 
   const onChange = (e) =>
@@ -45,7 +71,11 @@ const NewPhysioForm = () => {
         },
       };
 
-      await axios.post('http://localhost:4002/physios', formData, config);
+      await axios.patch(
+        `http://localhost:4002/physios/${id}`,
+        formData,
+        config
+      );
 
       history.push('/physios');
     } catch (error) {
@@ -56,7 +86,7 @@ const NewPhysioForm = () => {
   return (
     <div className="flex-col w-full justify-center items-center">
       <div className="text-left font-bold text-3xl py-3 ml-3">
-        Add new Physio
+        Update Physio
       </div>
       <form onSubmit={(e) => onSubmit(e)} class="w-full flex flex-wrap">
         <label class="block mx-4 w-full sm:w-5/12">
@@ -191,11 +221,11 @@ const NewPhysioForm = () => {
           class="bg-green-300 p-3 m-4 rounded-2xl font-bold block w-full"
           type="submit"
         >
-          Add New Physio
+          Update Physio
         </button>
       </form>
     </div>
   );
 };
 
-export default NewPhysioForm;
+export default UpdatePhysioForm;

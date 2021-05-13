@@ -53,9 +53,8 @@ const NewClientForm = () => {
           'Content-Type': 'application/json',
         },
       };
-      console.log(formData);
 
-      const res = await axios.post(
+      await axios.post(
         'http://localhost:4002/clients',
         formData,
         config

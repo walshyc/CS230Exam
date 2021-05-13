@@ -1,12 +1,23 @@
+// Browser: Mozilla Firefox Developer Edition
+// Operating System: Windows 10
+// Browser Version: 87.0b5
+// Also tested in Google Chrome version 88.0.4324.190
+
+// Use npm install to install the various packages
+// cd into client directory and use the command npm start to see the front end React application. npm install will be required in this directory also
+
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 
+// imports of modals from models folder
 const Client = require('./models/Clients');
 const Physio = require('./models/Physios');
 const Session = require('./models/Sessions');
 
+// imports of routes from routes folder
 const clients = require('./routes/clients');
 const physios = require('./routes/physios');
 const sessions = require("./routes/sessions");
@@ -15,16 +26,6 @@ const sessions = require("./routes/sessions");
 app.use(express.json());
 app.use(cors());
 app.use(express.static('public'));
-
-// Routes
-// app.get('/', (req, res) => {
-//   fs.readFile(__dirname + '/assignment-05.html', 'utf8', (err, text) => {
-//     res.send(text);
-//   });
-// });
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-// });
 
 // Define Routes
 app.use('/clients', clients);
@@ -41,70 +42,6 @@ mongoose.connect(
   }
 );
 
-app.get('/generatePhysio', (req, res) => {
-  let total = 30;
-  let usersArray = [];
-  for (let index = 0; index < total; index++) {
-    const userData = generateRandomName();
-    let address = generateAddress();
-    let eircode = new RandExp(
-      /(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ ][0-9AC-FHKNPRTV-Y]{4}$/
-    );
-    let user = {
-      title: generateTitle(),
-      fname: userData.first,
-      lname: userData.last,
-      mobile: generateMobile(),
-      homePhone: generateMobile(),
-      email: userData.email,
-      address: {
-        addressOne: address.street,
-        addressTwo: '',
-        town: address.city,
-        county: address.county,
-        eircode: eircode.gen(),
-      },
-    };
-    usersArray.push(user);
-  }
-  //console.log(usersArray);
-  Physio.insertMany(usersArray)
-    .then(() => console.log('physios added'))
-    .catch((err) => console.log(err));
-  res.json(usersArray);
-});
-app.get('/generateSessions', (req, res) => {
-  let total = 30;
-  let usersArray = [];
-  for (let index = 0; index < total; index++) {
-    const userData = generateRandomName();
-    let address = generateAddress();
-    let eircode = new RandExp(
-      /(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ ][0-9AC-FHKNPRTV-Y]{4}$/
-    );
-    let user = {
-      title: generateTitle(),
-      fname: userData.first,
-      lname: userData.last,
-      mobile: generateMobile(),
-      homePhone: generateMobile(),
-      email: userData.email,
-      address: {
-        addressOne: address.street,
-        addressTwo: '',
-        town: address.city,
-        county: address.county,
-        eircode: eircode.gen(),
-      },
-    };
-    usersArray.push(user);
-  }
-  //console.log(usersArray);
-  Physio.insertMany(usersArray)
-    .then(() => console.log('physios added'))
-    .catch((err) => console.log(err));
-  res.json(usersArray);
-});
 
 app.listen(4002, () => {});
 

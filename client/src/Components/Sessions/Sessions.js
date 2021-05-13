@@ -8,11 +8,10 @@ const Sessions = () => {
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get('http://localhost:4002/sessions/');
-      console.log(res.data);
       setSessions(res.data);
-      console.log(sessions);
     };
     getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="w-full min-h-screen bg-gray-300">
@@ -25,9 +24,11 @@ const Sessions = () => {
         </Link>
       </div>
       <div className="flex flex-wrap justify-center items-center gap-1 w-full">
-        {sessions.map((s, i) => (
-          <SessionCard key={i} session={s}></SessionCard>
-        ))}
+        {sessions
+          .sort((a, b) => a.date < b.date)
+          .map((s, i) => (
+            <SessionCard key={i} session={s}></SessionCard>
+          ))}
       </div>
     </div>
   );

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router';
-import { useHistory, useParams } from 'react-router-dom';
-import PhysioSessions from './PhysioSessions';
 
-const PhysioProfile = () => {
-  const { id } = useParams();
-  const [physioDetails, setPhysioDetails] = useState([]);
-  const [physioSessions, setPhysioSessions] = useState([]);
+const ClientProfile = () => {
+  const { state } = useLocation();
+  const [clientDetails, setClientDetails] = useState([]);
+  const [clientSessions, setClientSessions] = useState([]);
   useEffect(() => {
     const getData = async () => {
-      const clientRes = await axios.get(`http://localhost:4002/physios/${id}`);
-      const sessionsRes = await axios.get(
-        `http://localhost:4002/sessions/physio/${id}`
+      const clientRes = await axios.get(
+        `http://localhost:4002/clients/${state.client._id}`
       );
-      setPhysioDetails(clientRes.data);
-      setPhysioSessions(sessionsRes.data);
+      const sessionsRes = await axios.get(
+        `http://localhost:4002/sessions/${state.client._id}`
+      );
+      setClientDetails(clientRes.data);
+      setClientSessions(sessionsRes.data);
     };
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,7 +27,7 @@ const PhysioProfile = () => {
         <div className="w-full h-10 bg-green-300 rounded-t">
           <div className="flex flex-col justify-center items-start h-full w-full">
             <p className="w-full pl-4 text-xl font-bold">
-              {physioDetails.fname} {physioDetails.lname}
+              {clientDetails.fname} {clientDetails.lname}
             </p>
           </div>
         </div>
@@ -49,8 +49,8 @@ const PhysioProfile = () => {
                     d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
                   />
                 </svg>
-                <a href={`tel:${physioDetails.mobile}`}>
-                  {physioDetails.mobile}
+                <a href={`tel:${clientDetails.mobile}`}>
+                  {clientDetails.mobile}
                 </a>
               </div>
               <div className="w-full sm:w-1/2 pl-4 flex py-2">
@@ -68,8 +68,8 @@ const PhysioProfile = () => {
                     d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
                   />
                 </svg>
-                <a href={`tel:${physioDetails.homePhone}`}>
-                  {physioDetails.homePhone}
+                <a href={`tel:${clientDetails.homePhone}`}>
+                  {clientDetails.homePhone}
                 </a>
               </div>
               <div className="w-full sm:w-1/2 pl-4 flex py-2">
@@ -87,8 +87,8 @@ const PhysioProfile = () => {
                     d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
                   />
                 </svg>
-                <a href={`mailto:${physioDetails.email}`}>
-                  {physioDetails.email}
+                <a href={`mailto:${clientDetails.email}`}>
+                  {clientDetails.email}
                 </a>
               </div>
               <div className="w-full sm:w-1/2 pl-4 flex py-2">
@@ -107,15 +107,15 @@ const PhysioProfile = () => {
                   />
                 </svg>
                 <div className="flex flex-col items-start">
-                  <div className="">{physioDetails.address?.addressOne}</div>
+                  <div className="">{clientDetails.address?.addressOne}</div>
                   <div className="">
-                    {physioDetails.address?.addressTwo
-                      ? physioDetails.address?.addressTwo
+                    {clientDetails.address?.addressTwo
+                      ? clientDetails.address?.addressTwo
                       : ''}
                   </div>
-                  <div className="">{physioDetails.address?.town}</div>
-                  <div className="">{physioDetails.address?.county}</div>
-                  <div className="">{physioDetails.address?.eircode}</div>
+                  <div className="">{clientDetails.address?.town}</div>
+                  <div className="">{clientDetails.address?.county}</div>
+                  <div className="">{clientDetails.address?.eircode}</div>
                 </div>
               </div>
             </div>
@@ -124,12 +124,9 @@ const PhysioProfile = () => {
           </div>
         </div>
       </div>
-      <PhysioSessions
-        physio={physioDetails}
-        sessions={physioSessions}
-      ></PhysioSessions>
+      {/* <UserOrders user={clientDetails} orders={userOrders}></UserOrders> */}
     </div>
   );
 };
 
-export default PhysioProfile;
+export default ClientProfile;

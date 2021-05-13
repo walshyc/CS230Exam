@@ -1,8 +1,18 @@
 import React from 'react';
 import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 
 const SessionCard = ({ session }) => {
+  const history = useHistory();
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    await axios.delete(
+      `http://localhost:4002/sessions/${session._id}`
+    );
+    history.push('/');
+  };
+
   return (
     <div className="w-full mx-10 rounded bg-white shadow mt-6">
       <div className="w-full h-10 bg-green-300 rounded-t">
@@ -181,6 +191,62 @@ const SessionCard = ({ session }) => {
             </div>
             <div className="w-full flex py-4">
               <div className="">{session.notes}</div>
+            </div>
+            <div className="w-full pl-4 flex justify-between py-2">
+              <div className="flex justify-between w-10/12">
+                <div className="w-10/12 mr-2">
+                  <button
+                    onClick={(e) => handleDelete(e)}
+                    className="bg-red-400 py-3 px-2 flex rounded-xl shadow-lg w-full"
+                  >
+                    <svg
+                      className="w-6 h-6 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                    <div>
+                      <div>Delete Session</div>
+                    </div>{' '}
+                  </button>
+                </div>
+                <div className="w-10/12">
+                  <Link
+                    to={{
+                      pathname: `/sessions/update/${session._id}`,
+                      state: { session },
+                    }}
+                  >
+                    <div className="bg-blue-400 py-3 px-2 flex rounded-xl shadow-lg w-full">
+                      <svg
+                        className="w-6 h-6 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                      <div>
+                        <div>Update Session</div>
+                      </div>{' '}
+                    </div>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>

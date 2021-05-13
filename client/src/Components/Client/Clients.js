@@ -8,7 +8,6 @@ const Clients = () => {
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get('http://localhost:4002/clients');
-      console.log(res.data);
       setClients(res.data);
     };
     getData();

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 
-const NewPhysioForm = () => {
-  let history = useHistory();
+const NewClientForm = () => {
+  const { state } = useLocation();
+  const history = useHistory();
+  const { id } = useParams();
+  const [clientDetails, setClientDetails] = useState([]);
   const [formData, setFormData] = useState({
     addressOne: '',
     addressTwo: '',
@@ -16,7 +19,47 @@ const NewPhysioForm = () => {
     mobile: '',
     homePhone: '',
     email: '',
+    dob: '',
+    parentGuardian: '',
+    permission: true,
+    referredBy: '',
+    doctor: '',
   });
+
+  useEffect(() => {
+    const getData = async () => {
+      const clientRes = await axios.get(`http://localhost:4002/clients/${id}`);
+      setClientDetails(clientRes.data);
+      let passeddate = new Date(state.clientDetails.dob);
+      setFormData({
+        ...formData,
+        addressOne: state.clientDetails.addressOne,
+        addressTwo: state.clientDetails.addressTwo,
+        town: state.clientDetails.town,
+        county: state.clientDetails.county,
+        eircode: state.clientDetails.eircode,
+        title: state.clientDetails.title,
+        fname: state.clientDetails.fname,
+        lname: state.clientDetails.lname,
+        mobile: state.clientDetails.mobile,
+        homePhone: state.clientDetails.homePhone,
+        email: state.clientDetails.email,
+        date: `${passeddate.getFullYear()}-${
+          passeddate.getMonth() + 1 < 10
+            ? `0${passeddate.getMonth() + 1}`
+            : passeddate.getMonth() + 1
+        }-${passeddate.getDate()}`,
+        parentGuardian: state.clientDetails.parentGuardian,
+        permission: state.clientDetails.permission,
+        referredBy: state.clientDetails.referredBy,
+        doctor: state.clientDetails.doctor,
+      });
+
+    };
+    getData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const {
     addressOne,
@@ -31,6 +74,10 @@ const NewPhysioForm = () => {
     homePhone,
     email,
     dob,
+    parentGuardian,
+    permission,
+    referredBy,
+    doctor,
   } = formData;
 
   const onChange = (e) =>
@@ -45,9 +92,14 @@ const NewPhysioForm = () => {
         },
       };
 
-      await axios.post('http://localhost:4002/physios', formData, config);
 
-      history.push('/physios');
+      await axios.patch(
+        `http://localhost:4002/clients/${id}`,
+        formData,
+        config
+      );
+
+      history.push('/clients');
     } catch (error) {
       const errors = error.response.data.errors;
       console.log(errors);
@@ -56,7 +108,7 @@ const NewPhysioForm = () => {
   return (
     <div className="flex-col w-full justify-center items-center">
       <div className="text-left font-bold text-3xl py-3 ml-3">
-        Add new Physio
+        Update Client
       </div>
       <form onSubmit={(e) => onSubmit(e)} class="w-full flex flex-wrap">
         <label class="block mx-4 w-full sm:w-5/12">
@@ -186,16 +238,71 @@ const NewPhysioForm = () => {
             onChange={(e) => onChange(e)}
           />
         </label>
+        <label class="block mx-4 w-full sm:w-5/12">
+          <span class="text-gray-700">Date of Birth</span>
+          <input
+            type="date"
+            class="form-input mt-1 block w-full"
+            name="dob"
+            value={dob}
+            onChange={(e) => onChange(e)}
+          />
+        </label>
+        <label class="block mx-4 w-full sm:w-5/12">
+          <span class="text-gray-700">Parent/Gardian</span>
+          <input
+            type="text"
+            class="form-input mt-1 block w-full"
+            placeholder="Tom Smith"
+            name="parentGuardian"
+            value={parentGuardian}
+            onChange={(e) => onChange(e)}
+          />
+        </label>
+        <label class="block mx-4 w-full sm:w-5/12">
+          <span class="text-gray-700">Doctor</span>
+          <input
+            type="text"
+            class="form-input mt-1 block w-full"
+            placeholder="Dr Dolittle"
+            name="doctor"
+            value={doctor}
+            onChange={(e) => onChange(e)}
+          />
+        </label>
+        <label class="block mx-4 w-full sm:w-5/12">
+          <span class="text-gray-700">Refrerred By</span>
+          <input
+            type="text"
+            class="form-input mt-1 block w-full"
+            placeholder="Mary Jones"
+            name="referredBy"
+            value={referredBy}
+            onChange={(e) => onChange(e)}
+          />
+        </label>
+        <label class="block mx-4 w-full sm:w-5/12">
+          <span class="text-gray-700">Permission to contact</span>
+          <select
+            name="permission"
+            value={permission}
+            onChange={(e) => onChange(e)}
+            class="form-select block w-full mt-1"
+          >
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
+          </select>
+        </label>
 
         <button
           class="bg-green-300 p-3 m-4 rounded-2xl font-bold block w-full"
           type="submit"
         >
-          Add New Physio
+          Update Client
         </button>
       </form>
     </div>
   );
 };
 
-export default NewPhysioForm;
+export default NewClientForm;

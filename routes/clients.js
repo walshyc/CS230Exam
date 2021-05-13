@@ -6,6 +6,8 @@ const RandExp = require('randexp');
 const Client = require('../models/Clients');
 const Session = require('../models/Sessions');
 
+
+// Route to get all Clients
 router.get('/', async (req, res, next) => {
   try {
     const clients = await Client.find();
@@ -16,6 +18,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// Route to generate sample clients and add to database
 router.get('/generate', async (req, res, next) => {
   try {
     let total = 5;
@@ -79,6 +82,7 @@ router.get('/generate', async (req, res, next) => {
   }
 });
 
+// Route to add a new client to the database
 router.post('/', async (req, res, next) => {
   const {
     title,
@@ -130,6 +134,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// Route to get a specific client by their ID
 router.get('/:clientId', async (req, res, next) => {
   try {
     const client = await Client.findById(req.params.clientId);
@@ -140,6 +145,8 @@ router.get('/:clientId', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+// route to delete a client
 router.delete('/:clientId', async (req, res, next) => {
   try {
     const deletedClient = await Client.remove({ _id: req.params.clientId });
@@ -154,6 +161,8 @@ router.delete('/:clientId', async (req, res, next) => {
     res.json({ message: error });
   }
 });
+
+// route to update a client by using their ID
 router.patch('/:clientId', async (req, res, next) => {
   const {
     title,
